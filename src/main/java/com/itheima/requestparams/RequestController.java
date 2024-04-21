@@ -47,4 +47,11 @@ public class RequestController {
         System.out.println(user);
         return  "OK";
     }
+
+    @RequestMapping("/complexPojo")
+    public String complexPojo(User user) {
+        // 实体对象参数: 请求参数与形参对象属性名相同,即可直接通过POJO接收
+        System.out.println(user);
+        return  "OK";
+    }
 }

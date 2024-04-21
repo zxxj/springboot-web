@@ -3,6 +3,7 @@ package com.itheima.pojo;
 public class User {
     private String name;
     private Integer age;
+    private Address address;
 
     public String getName() {
         return name;
@@ -10,6 +11,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Integer getAge() {
@@ -22,6 +31,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{name='" + name + "', age=" + age + "}";
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", address=" + address +
+                '}';
     }
 }
