@@ -2,13 +2,17 @@ package com.itheima.requestparams;
 
 import com.itheima.pojo.User;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class RequestController {
 
+// 一.获取参数的方式
 //    @RequestMapping("/simpleParam")
 //    public String simpleParam(HttpServletRequest request) {
 //
@@ -41,17 +45,66 @@ public class RequestController {
         return "ok";
     }
 
-    // 实体参数
+    // 二.实体参数
     @RequestMapping("/simplePojo")
     public String simplePojo(User user) {
         System.out.println(user);
         return  "OK";
     }
 
+    // 三.对象实体参数
     @RequestMapping("/complexPojo")
     public String complexPojo(User user) {
         // 实体对象参数: 请求参数与形参对象属性名相同,即可直接通过POJO接收
         System.out.println(user);
         return  "OK";
+    }
+
+    // 四.数组集合参数（1.使用数组来对参数进行封装）
+    // 请求参数名与形参中数组变量名相同，可以直接使用数组封装
+    @RequestMapping("/arrayParam")
+    public String arrayParam(String[] hobby) {
+        System.out.println(Arrays.toString(hobby));
+        return "OK";
+    }
+
+    // 数组集合参数（2.使用集合来对参数进行封装）
+    // 请求参数名与形参中集合变量名相同，通过@RequestParam绑定参数关系
+    @RequestMapping("/listParam")
+    public String listParam(@RequestParam List<String> hobby) {
+        System.out.println(hobby);
+        return "OK";
+    }
+
+    // 五.日期时间参数
+    @RequestMapping("/dateParam")
+    public String dateParam(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime updateTime) {
+        System.out.println(updateTime);
+        return "OK";
+    }
+
+    // 六.JSON参数
+    @RequestMapping("/jsonParam")
+    public String jsonParam(@RequestBody User user) {
+        // JSON数据键名与形参对象属性名相同,定义POJO类型形参即可接收参数,需要使用@RequestBody标识
+        System.out.println(user);
+        return "OK";
+    }
+
+    // 七.路径参数
+
+    // 单个参数
+    @RequestMapping("/path/{id}")
+    public String pathParam(@PathVariable Integer id) {
+        System.out.println(id);
+        return "OK";
+    }
+
+    // 多个参数
+    @RequestMapping("/path/{id}/{name}")
+    public String pathParam(@PathVariable Integer id, @PathVariable String name) {
+        System.out.println(id);
+        System.out.println(name);
+        return "OK";
     }
 }
